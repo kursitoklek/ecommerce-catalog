@@ -1,9 +1,10 @@
 <template>
   <div class="productContent" id="productContent">
     <div class="bg" id="bg">
-      <div class="color-bg1" id="bg1" :style="{ backgroundColor: getCategoryColor(category) }"></div>
+      <div class="color-bg1" id="bg1" :style="{ backgroundColor: getCategoryColorBg(category) }"></div>
       <div class="color-bg2" id="bg2"></div>
     </div>
+    <!-- looping data dalam array menWomenProdcut untuk diatmpilkan pada component -->
     <div v-if="menWomenProducts.length > 0">
       <div
         class="content-box"
@@ -15,7 +16,7 @@
           <img :src="getProductImage(product)" alt="productPicture" />
         </div>
         <div class="information">
-          <h2>
+          <h2 :style="{ color: getCategoryColorButton(category) }">
             {{ product.title }}
           </h2>
           <div class="rating">
@@ -27,14 +28,15 @@
             {{ product.description }}
           </p>
           <hr class="" style="margin-top: 50px" />
-          <h2>${{ product.price }}</h2>
+          <h2 :style="{ color: getCategoryColorButton(category) }">${{ product.price }}</h2>
           <div class="buttonProduct ">
-            <button class="Buy" @click="buyProduct(product)">Buy Now</button>
-            <button class="Next" @click="getNextProducts">Next Product</button>
+            <button class="Buy" @click="buyProduct(product)" :style="{ backgroundColor: getCategoryColorButton(category) }">Buy Now</button>
+            <button class="Next" @click="getNextProducts" :style="{ borderColor: getCategoryColorButton(category) }">Next Product</button>
           </div>
         </div>
       </div>
     </div>
+    <!-- jika bukan category men dan women, munculkan unavailable product -->
     <div v-else-if="category !== 'men\'s clothing' && category !== 'women\'s clothing'">
       <div class="content-box-unavailable" id="content-box-unavailable">
         <div class="unavailable-product ">
@@ -60,11 +62,18 @@ export default {
     this.fetchProducts();
   },
   methods: {
-    getCategoryColor(category) {
+  //  Fungsi dalam membedakan warna untuk background dan Judul berdasarkan categorynya
+    getCategoryColorBg(category) {
       return category === "men's clothing" ? '#d6e6ff' :
              category === "women's clothing" ? '#fde2ff' :
              '#dcdcdc'; // Gaya default jika kategori tidak sesuai
     },
+    getCategoryColorButton(category) {
+      return category === "men's clothing" ? '#720060' :
+             category === "women's clothing" ? '#002772' :
+             '#1e1e1e'; // Gaya default jika kategori tidak sesuai
+    },
+    // fetching API dari fakestore
     fetchProducts() {
       const apiUrl = `https://fakestoreapi.com/products/${this.currentIndex}`;
       axios
@@ -97,6 +106,7 @@ export default {
           console.error("Error fetching data:", error);
         });
     },
+    // fungsi dalam melakukan Next prodcut dan kembali ke produk awal jika index telah mencapai 20
     getNextProducts() {
       this.currentIndex++;
       if (this.currentIndex > 20) {
@@ -134,7 +144,7 @@ export default {
 #bg2 {
   background-color: whitesmoke;
   height: 30vh;
-}
+} 
 
 h1 {
   margin: 0;
