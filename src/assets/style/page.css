@@ -1,0 +1,26 @@
+/* Women product color */
+
+:root {
+    --button-women-color: #720060;
+    --bg-color-women: #fde2ff;
+    --text-product: #1e1e1e;
+    --tittle-product: #720060;
+}
+
+
+/* Men product color */
+
+:root {
+    --button-men-color: #002772;
+    --bg-color-men: #d6e6ff;
+    --text-product: #1e1e1e;
+    --tittle-product: #002772;
+}
+
+
+/* No product color */
+
+:root {
+    --button-Next-Unavailable: #1e1e1e;
+    --bg-color-Unavailable: #dcdcdc;
+}
